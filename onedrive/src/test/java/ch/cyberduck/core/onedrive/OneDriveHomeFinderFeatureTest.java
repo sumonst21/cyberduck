@@ -33,5 +33,6 @@ public class OneDriveHomeFinderFeatureTest extends AbstractOneDriveTest {
         final Path home = f.find();
         assertNotNull(home);
         assertFalse(home.isRoot());
+        assertNotNull(home.attributes().getDisplayname());
     }
 }
