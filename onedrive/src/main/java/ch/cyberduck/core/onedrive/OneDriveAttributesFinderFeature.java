@@ -26,6 +26,7 @@ import ch.cyberduck.core.features.AttributesFinder;
 
 import org.apache.log4j.Logger;
 import org.nuxeo.onedrive.client.OneDriveAPIException;
+import org.nuxeo.onedrive.client.OneDriveDrive;
 import org.nuxeo.onedrive.client.OneDriveFile;
 import org.nuxeo.onedrive.client.OneDriveFolder;
 import org.nuxeo.onedrive.client.OneDriveItem;
@@ -65,6 +66,23 @@ public class OneDriveAttributesFinderFeature implements AttributesFinder {
         catch(IOException e) {
             throw new DefaultIOExceptionMappingService().map("Failure to read attributes of {0}", e, file);
         }
+    }
+
+    protected PathAttributes convert(final OneDriveDrive.Metadata metadata) {
+        final PathAttributes attributes = new PathAttributes();
+        attributes.setSize(metadata.getTotal());
+        switch(metadata.getDriveType()) {
+            case personal:
+                attributes.setDisplayname("OneDrive Personal");
+                break;
+            case business:
+                attributes.setDisplayname("OneDrive Business");
+                break;
+            case documentLibrary:
+                attributes.setDisplayname("Document Library");
+                break;
+        }
+        return attributes;
     }
 
     protected PathAttributes convert(final OneDriveItem.Metadata metadata) {

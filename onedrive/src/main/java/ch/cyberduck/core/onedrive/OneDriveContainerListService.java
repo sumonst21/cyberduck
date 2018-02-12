@@ -57,19 +57,7 @@ public class OneDriveContainerListService implements RootListService {
                 log.warn(e.getMessage());
                 continue;
             }
-            final PathAttributes attributes = new PathAttributes();
-            attributes.setSize(metadata.getTotal());
-            switch(metadata.getDriveType()) {
-                case personal:
-                    attributes.setDisplayname("OneDrive Personal");
-                    break;
-                case business:
-                    attributes.setDisplayname("OneDrive Business");
-                    break;
-                case documentLibrary:
-                    attributes.setDisplayname("Document Library");
-                    break;
-            }
+            final PathAttributes attributes = new OneDriveAttributesFinderFeature(session).convert(metadata);
             children.add(new Path(directory, metadata.getId(), EnumSet.of(Path.Type.directory, Path.Type.volume), attributes));
             listener.chunk(directory, children);
         }

@@ -41,19 +41,8 @@ public class OneDriveHomeFinderFeature extends DefaultHomeFinderService {
         if(home == DEFAULT_HOME) {
             try {
                 final OneDriveDrive.Metadata metadata = OneDriveDrive.getDefaultDrive(session.getClient()).getMetadata();
-                final Path drive = new Path(metadata.getId(), EnumSet.of(Path.Type.volume, Path.Type.directory));
-                switch(metadata.getDriveType()) {
-                    case personal:
-                        drive.attributes().setDisplayname("OneDrive Personal");
-                        break;
-                    case business:
-                        drive.attributes().setDisplayname("OneDrive Business");
-                        break;
-                    case documentLibrary:
-                        drive.attributes().setDisplayname("Document Library");
-                        break;
-                }
-                return drive;
+                return new Path(metadata.getId(), EnumSet.of(Path.Type.volume, Path.Type.directory),
+                    new OneDriveAttributesFinderFeature(session).convert(metadata));
             }
             catch(OneDriveAPIException e) {
                 throw new OneDriveExceptionMappingService().map("Failure to read attributes of {0}", e, home);
