@@ -232,6 +232,9 @@ namespace Ch.Cyberduck.Core.Preferences
             this.setDefault("bookmark.import.netdrive2.location",
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                     "NetDrive2", "drives.dat"));
+            this.setDefault("bookmark.import.cloudmounter.location",
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "CloudMounter", "drives.json"));
 
             //disable reminder for protocol handler registration
             this.setDefault("defaulthandler.reminder", false.ToString());

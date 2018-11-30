@@ -654,7 +654,8 @@ namespace Ch.Cyberduck.Ui.Controller
                 new Expandrive4BookmarkCollection(),
                 new Expandrive5BookmarkCollection(),
                 new Expandrive6BookmarkCollection(),
-                new NetDrive2BookmarkCollection()
+                new NetDrive2BookmarkCollection(),
+                new CloudMounterBookmarkCollectionWindows()
             };
         }
 
