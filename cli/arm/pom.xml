@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2002-2019 iterate GmbH. All rights reserved.
+  ~ https://cyberduck.io/
+  ~
+  ~ This program is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>ch.cyberduck</groupId>
+        <artifactId>parent</artifactId>
+        <relativePath>../../pom.xml</relativePath>
+        <version>6.9.3-SNAPSHOT</version>
+    </parent>
+    <artifactId>cli-arm</artifactId>
+    <description>Cyberduck CLI ARM</description>
+    <packaging>pom</packaging>
+
+    <profiles>
+        <profile>
+            <id>arm</id>
+            <activation>
+                <property>
+                    <name>os.arch.arm.enabled</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-profiles</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>ch.cyberduck</groupId>
+                                            <artifactId>profiles</artifactId>
+                                            <version>${project.version}</version>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <outputDirectory>${project.build.directory}/profiles
+                                    </outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>ch.cyberduck</groupId>
+            <artifactId>cli</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>libjnidispatch</artifactId>
+            <classifier>x86_32</classifier>
+            <type>so</type>
+            <version>5.0.0</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>libjnidispatch</artifactId>
+            <classifier>x86_64</classifier>
+            <type>so</type>
+            <version>5.0.0</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+</project>
