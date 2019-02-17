@@ -36,7 +36,7 @@
         </replace>
         <path id="javafx.classpath">
             <!-- Includes linuxrpmbuilder for given architecture -->
-            <pathelement path="${lib.ext}/ant-javafx.${sun.arch.data.model}.jar"/>
+            <pathelement path="${lib.ext}/ant-javafx.arm-${sun.arch.data.model}.jar"/>
             <pathelement path="${build.bundles}"/>
         </path>
         <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
